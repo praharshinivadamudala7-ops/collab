@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Manga Artists Dashboard</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f7f7fa;
+      color: #333;
+    }
+
+    header {
+      background: #222;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+
+    .search-bar {
+      margin: 20px auto;
+      max-width: 500px;
+      display: flex;
+      gap: 10px;
+    }
+
+    .search-bar input {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    .search-bar button {
+      padding: 10px 16px;
+      border: none;
+      background: #444;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .search-bar button:hover {
+      background: #666;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      overflow: hidden;
+      transition: transform 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .card-content {
+      padding: 15px;
+    }
+
+    .card-content h3 {
+      margin: 0 0 10px;
+      font-size: 20px;
+      color: #222;
+    }
+
+    .card-content p {
+      font-size: 14px;
+      margin: 0;
+      color: #555;
+    }
+
+    footer {
+      text-align: center;
+      padding: 15px;
+      background: #222;
+      color: white;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Manga Artists & Their Collections</h1>
+  </header>
+
+  <div class="search-bar">
+    <input type="text" id="searchInput" placeholder="Search artists or collections...">
+    <button onclick="searchArtists()">Search</button>
+  </div>
+
+  <div class="grid" id="artistGrid">
+    <!-- Dynamic artist cards will be injected here -->
+  </div>
+
+  <footer>
+    &copy; 2025 Manga Artists Dashboard | Created with HTML, CSS, and JS
+  </footer>
+
+  <script>
+    const artists = [
+      {
+        name: "Eiichiro Oda",
+        collection: "One Piece",
+        image: "https://upload.wikimedia.org/wikipedia/en/2/29/OnePieceVolume1Cover.jpg"
+      },
+      {
+        name: "Masashi Kishimoto",
+        collection: "Naruto",
+        image: "https://upload.wikimedia.org/wikipedia/en/9/94/NarutoCoverTankobon1.jpg"
+      },
+      {
+        name: "Tite Kubo",
+        collection: "Bleach",
+        image: "https://upload.wikimedia.org/wikipedia/en/7/72/Bleachanime.png"
+      },
+      {
+        name: "Hajime Isayama",
+        collection: "Attack on Titan",
+        image: "https://upload.wikimedia.org/wikipedia/en/8/8a/Shingeki_no_Kyojin_manga_volume_1.jpg"
+      },
+      {
+        name: "Akira Toriyama",
+        collection: "Dragon Ball",
+        image: "https://upload.wikimedia.org/wikipedia/en/5/5a/Dragon_Ball_%28manga%29_1.png"
+      },
+      {
+        name: "Naoko Takeuchi",
+        collection: "Sailor Moon",
+        image: "https://upload.wikimedia.org/wikipedia/en/7/75/SailorMoonvol1.jpg"
+      }
+    ];
+
+    const grid = document.getElementById("artistGrid");
+
+    function displayArtists(list) {
+      grid.innerHTML = "";
+      list.forEach(artist => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <img src="${artist.image}" alt="${artist.name}">
+          <div class="card-content">
+            <h3>${artist.name}</h3>
+            <p>Famous Work: ${artist.collection}</p>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function searchArtists() {
+      const query = document.getElementById("searchInput").value.toLowerCase();
+      const filtered = artists.filter(a => 
+        a.name.toLowerCase().includes(query) ||
+        a.collection.toLowerCase().includes(query)
+      );
+      displayArtists(filtered);
+    }
+
+    // Initial display
+    displayArtists(artists);
+  </script>
+</body>
+</html>
